@@ -93,6 +93,7 @@ func (w *Worker) Run() {
 	for i := 0; i < w.Nmessages; i++ {
 		text := fmt.Sprintf("this is msg #%d!", i)
 		token := publisher.Publish(topicName, 0, false, text)
+		verboseLogger.Printf("[%d] Published text: %d \n", w.WorkerId, text)
 		publishedCount++
 		token.Wait()
 	}
