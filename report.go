@@ -121,7 +121,8 @@ func printSummary(summary Summary) {
 	fmt.Println()
 	fmt.Printf("# Configuration\n")
 	fmt.Printf("Concurrent Clients: %d\n", summary.Clients)
-	fmt.Printf("Messages / Client:  %d\n", summary.TotalMessages)
+	fmt.Printf("Total Messages:  %d\n", summary.TotalMessages)
+	fmt.Printf("Messages / Client:  %d\n", (float64(summary.TotalMessages) / float64(summary.Clients)))
 
 	fmt.Println()
 	fmt.Printf("# Results\n")
@@ -129,8 +130,8 @@ func printSummary(summary Summary) {
 	fmt.Printf("Published Messages: %d (%.0f%%)\n", summary.MessagesPublished, (float64(summary.MessagesPublished) / float64(summary.TotalMessages) * 100))
 	fmt.Printf("Received Messages:  %d (%.0f%%)\n", summary.MessagesReceived, (float64(summary.MessagesReceived) / float64(summary.MessagesPublished) * 100))
 
-	fmt.Printf("Completed:          %d (%.0f%%)\n", summary.Completed, (float64(summary.Completed) / float64(summary.Clients) * 100))
-	fmt.Printf("Errors:             %d (%.0f%%)\n", summary.Errors, (float64(summary.Errors) / float64(summary.Clients) * 100))
+	fmt.Printf("Completed Clients:  %d (%.0f%%)\n", summary.Completed, (float64(summary.Completed) / float64(summary.Clients) * 100))
+	fmt.Printf("Clies with Errors:  %d (%.0f%%)\n", summary.Errors, (float64(summary.Errors) / float64(summary.Clients) * 100))
 
 	if summary.Errors > 0 {
 		fmt.Printf("- ConnectFailed:      %d (%.0f%%)\n", summary.ConnectFailed, (float64(summary.ConnectFailed) / float64(summary.Errors) * 100))
