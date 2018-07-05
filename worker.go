@@ -109,10 +109,10 @@ func (w *Worker) Run() {
 	t0 = time.Now()
 	for receivedCount < w.Nmessages && !stopWorker {
 		select {
-		case message := <-queue:
+		case <-queue:
 			receivedCount++
 
-			verboseLogger.Printf("[%d] %d/%d received. Message:%d \n", w.WorkerId, receivedCount, w.Nmessages, message[1])
+			verboseLogger.Printf("[%d] %d/%d received. \n", w.WorkerId, receivedCount, w.Nmessages)
 			if receivedCount == w.Nmessages {
 				resultChan <- Result{
 					WorkerId:          w.WorkerId,
