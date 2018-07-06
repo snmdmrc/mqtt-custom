@@ -71,7 +71,7 @@ func (w *Worker) Run() {
 	}()
 
 	verboseLogger.Printf("[%d] subscribing to topic\n", w.WorkerId)
-	if token := subscriber.Subscribe(topicName, 0, nil); token.WaitTimeout(opTimeout) && token.Error() != nil {
+	if token := subscriber.Subscribe(topicName, 1, nil); token.WaitTimeout(opTimeout) && token.Error() != nil {
 		resultChan <- Result{
 			WorkerId:     w.WorkerId,
 			Event:        "SubscribeFailed",
@@ -92,7 +92,7 @@ func (w *Worker) Run() {
 	t0 := time.Now()
 	for i := 0; i < w.Nmessages; i++ {
 		text := fmt.Sprintf("this is msg #%d!", i)
-		token := publisher.Publish(topicName, 0, false, text)
+		token := publisher.Publish(topicName, 1, false, text)
 		verboseLogger.Printf("[%d] Published text: %d \n", w.WorkerId, text)
 		publishedCount++
 		token.Wait()
